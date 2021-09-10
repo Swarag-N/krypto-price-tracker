@@ -1,14 +1,13 @@
 
-from Alerts.models import AlertModel
+from Alerts.models import AlertModel,KryptoCoin
 
+def send_updates(coin_price):
 
-def send_updates(btc_price):
-
-    alert_instances_dropped = get_price_dropped_alerts(btc_price)
-    alert_instances_risen = get_price_risen_alerts(btc_price)
+    alert_instances_dropped = get_price_dropped_alerts(coin_price)
+    alert_instances_risen = get_price_risen_alerts(coin_price)
     
-    data = mail_context(alert_instances_dropped,btc_price);
-    data.extend(mail_context(alert_instances_risen,btc_price));
+    data = mail_context(alert_instances_dropped,coin_price);
+    data.extend(mail_context(alert_instances_risen,coin_price));
 
     return data
 
@@ -31,19 +30,19 @@ def mail_context(alert_queryset, cur_price):
     return mailContext
 
 
-def get_price_dropped_alerts(btc_price):
-    # TODO Set Trigger to done before returning
+def get_price_dropped_alerts(coin_price,coin):
     alert_instances_dropped = AlertModel.objects.filter(
         status = AlertModel.STATUS_LISTEN,
         check = AlertModel.CHECK_LOWERLIMIT,
-        price__gte = btc_price);
+        price__gte = coin_price);
     return alert_instances_dropped;
 
 
-def get_price_risen_alerts(btc_price):
-    # TODO Set Trigger to done before returning
+def get_price_risen_alerts(coin_price,coin):
     alert_instances_risen = AlertModel.objects.filter(
         status = AlertModel.STATUS_LISTEN,
         check = AlertModel.CHECK_UPPERLIMIT,
-        price__lte = btc_price);
+        price__lte = coin_price);
     return alert_instances_risen;
+
+

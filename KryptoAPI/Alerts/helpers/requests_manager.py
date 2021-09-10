@@ -10,3 +10,8 @@ def get_bitcoin_price():
 def get_coin_price(coin='bitcoin',curr='usd'):
     data = requests.get(f'https://api.coingecko.com/api/v3/simple/price?ids={coin}&vs_currencies={curr}').json();
     return data.get(coin).get(curr)
+
+
+def get_coins_price(coin='bitcoin',curr='usd'):
+    data = requests.get(f'https://api.coingecko.com/api/v3/simple/price?ids={coin}&vs_currencies={curr}').json();
+    return data
