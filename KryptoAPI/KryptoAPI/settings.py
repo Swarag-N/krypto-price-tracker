@@ -95,15 +95,17 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'KryptoAPI.wsgi.application'
 
+environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
+env = environ.Env()
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 DATABASES={
    'default':{
       'ENGINE':'django.db.backends.postgresql_psycopg2',
-      'NAME':'krypto2',
-      'USER':'krypto2',
-      'PASSWORD':'Swarag',
+      'NAME':env('DB_NAME'),
+      'USER':env('DB_USER'),
+      'PASSWORD':env('DB_PASS'),
       'HOST':'localhost',
       'PORT':'5432',
    }
@@ -160,9 +162,7 @@ STATIC_URL = '/static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 
-env = environ.Env()
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
