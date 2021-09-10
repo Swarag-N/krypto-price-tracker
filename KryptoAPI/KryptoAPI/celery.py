@@ -13,7 +13,7 @@ app.autodiscover_tasks()
 
 app.conf.beat_schedule = {
     'add-every-30-seconds': {
-        'task': 'get_latest_price_of_BTC',
+        'task': 'price_updates',
         'schedule': 30.0,
     },
 }
