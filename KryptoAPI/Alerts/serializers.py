@@ -11,3 +11,7 @@ class AlertSerializers(serializers.ModelSerializer):
     # def create(self, validated_data):
     #     validated_data['user'] = self.context.get('request').user;
     #     return super().create(validated_data)
+class AlertTestSerializers(serializers.ModelSerializer):
+    class Meta:
+        model = AlertModel
+        fields = '__all__'

@@ -1,4 +1,4 @@
-from Alerts.serializers import AlertSerializers
+from Alerts.serializers import AlertSerializers,AlertTestSerializers
 from Alerts.models import AlertModel
 from rest_framework.permissions import IsAuthenticated
 from rest_framework import generics
@@ -7,13 +7,24 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
 
 from pprint import pprint as p
-
+from Alerts.helpers.db_handler import send_updates;
 from django.core.exceptions import ObjectDoesNotExist
 
 
 
 class AlertView(APIView):
     # permission_classes = [IsAuthenticated]
+
+    # TODO Testing
+    @api_view(['GET'])
+    # @permission_classes([IsAuthenticated])
+    def listAlertsALL(self):
+        user = self.user;
+        alerts = AlertModel.objects.all();
+        send_updates(455);
+        serializer = AlertSerializers(alerts,many=True)
+        return Response(serializer.data);
+    
 
     @api_view(['GET'])
     @permission_classes([IsAuthenticated])
@@ -98,10 +109,5 @@ class AlertView(APIView):
 # class AlertList(viewsets.ModelViewSet):
 class AlertList(generics.ListCreateAPIView):
     queryset = AlertModel.objects.all()
-    serializer_class = AlertSerializers
-    permission_classes = [IsAuthenticated]
-
-
-    def list(self, request, *args, **kwargs):
-        
-        return super().list(request, *args, **kwargs)
+    serializer_class = AlertTestSerializers
+    # permission_classes = [IsAuthenticated]

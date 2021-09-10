@@ -1,25 +1,34 @@
 from __future__ import absolute_import, unicode_literals
 
 from celery.utils.log import get_task_logger
+from django.core.mail import send_mail
 from KryptoAPI.celery import app
 
-from Alerts.helper import get_bitcoin_price
+from Alerts.helpers.pricefetcher import get_bitcoin_price
+from Alerts.helpers.db_handler import send_updates
 from Alerts.mail import send_update_email
-
-from django.conf import settings
-from django.core.mail import send_mail
 
 
 logger = get_task_logger(__name__);
 
 
+
+
+@app.task(name="send_review_email_task")
+def send_email_task(email, message):
+    logger.info("update email to "+email);
+    return send_update_email(email, message)
+
+
 @app.task(name="price_updates")
 def price_updates():
     try:
-        logger.info(get_bitcoin_price())
-        send_update_email("swarag",'narayanasetty.swarag2018@vitstudent.ac.in',"sddsd");
+        BTC_PRICE = get_bitcoin_price()
+        users = send_updates(BTC_PRICE)
+        for i in users:
+            send_email_task.delay(i.get('recepinet'),i.get('body'))        
     except Exception as e:
-        print(e)
+        logger.error(str(e))
 
 
 # def mail(email=None, message=None, subject=None):

@@ -1,13 +1,11 @@
-from django.template import Context
-from django.template.loader import render_to_string
 from django.core.mail import EmailMessage
 from django.conf import settings
 
 
-def send_update_email(name, email, status):
+def send_update_email(email, message):
 
     email_subject = 'Here is you status review'
-    email_body = status
+    email_body = message
 
     email = EmailMessage(
         email_subject, email_body,
