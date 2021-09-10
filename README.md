@@ -3,11 +3,12 @@
 ## Tasks
 
 * CRUD of Alerts
-    - POSTGRE
+    - ~~POSTGRE~~
     - DB Design
-    - Django Rest Frame Work
+    - ~~Django Rest Frame Work~~
 * User Auth JWT
     - MiddleWare
+    - ~~Setup Login~~
 * PriceMoinitor 
     - Notifiaction System
     - BackGround Tasks (Celery)
