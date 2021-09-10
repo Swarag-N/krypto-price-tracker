@@ -37,6 +37,10 @@ REST_FRAMEWORK = {
     )
 }
 
+SIMPLE_JWT = {
+   'AUTH_HEADER_TYPES': ('JWT',),
+}
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -47,13 +51,19 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+
+    'Alerts',
+    'Authentication',
+
     'rest_framework',
     'rest_framework_simplejwt',
     'djoser',
 
-    'Alerts'
-
 ]
+
+AUTH_USER_MODEL = 'Authentication.User'
+
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -91,8 +101,8 @@ WSGI_APPLICATION = 'KryptoAPI.wsgi.application'
 DATABASES={
    'default':{
       'ENGINE':'django.db.backends.postgresql_psycopg2',
-      'NAME':'krypto',
-      'USER':'krypto',
+      'NAME':'krypto2',
+      'USER':'krypto2',
       'PASSWORD':'Swarag',
       'HOST':'localhost',
       'PORT':'5432',

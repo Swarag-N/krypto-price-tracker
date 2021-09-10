@@ -1,5 +1,6 @@
 from django.db import models
-from django.contrib.auth.models import User
+# from django.contrib.auth.models import User
+from Authentication.models import User
 
 # Create your models here.
 class AlertModel(models.Model):
@@ -34,7 +35,7 @@ class AlertModel(models.Model):
 
 
     def __str__(self) -> str:
-        return self.user.username+" "+self.coin
+        return self.user.email+" "+self.coin
 
 
 
