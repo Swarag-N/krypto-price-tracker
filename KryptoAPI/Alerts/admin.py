@@ -1,4 +1,4 @@
 from django.contrib import admin
-
+from Alerts.models import AlertModel 
 # Register your models here.
-admin.register()
+admin.site.register(AlertModel)
