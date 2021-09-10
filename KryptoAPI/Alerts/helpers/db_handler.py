@@ -19,6 +19,8 @@ def mail_context(alert_queryset, cur_price):
     for i in alert_queryset:
         temp = {}
         temp['recepinet']=i.user.email
+        i.status = AlertModel.STATUS_SLEEP;
+        i.save()
         msg  = ''
         if(i.check==AlertModel.CHECK_LOWERLIMIT):
             msg = "Price has dropped below" + str(i.price) +"do check. Now it is " + str(cur_price);

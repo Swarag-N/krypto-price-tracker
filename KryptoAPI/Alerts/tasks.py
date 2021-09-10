@@ -4,7 +4,7 @@ from celery.utils.log import get_task_logger
 from django.core.mail import send_mail
 from KryptoAPI.celery import app
 
-from Alerts.helpers.pricefetcher import get_bitcoin_price
+from Alerts.helpers.requests_manager import get_bitcoin_price
 from Alerts.helpers.db_handler import send_updates
 from Alerts.mail import send_update_email
 

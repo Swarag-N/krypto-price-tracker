@@ -5,11 +5,15 @@ from rest_framework import generics
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
+from rest_framework.pagination import PageNumberPagination
+from django_filters.rest_framework import DjangoFilterBackend
 
 from pprint import pprint as p
 from Alerts.helpers.db_handler import send_updates;
+from Alerts.helpers.requests_manager import get_bitcoin_price,get_coin_price
 from django.core.exceptions import ObjectDoesNotExist
 
+from Alerts.tasks import send_email_task
 
 
 class AlertView(APIView):
@@ -19,10 +23,13 @@ class AlertView(APIView):
     @api_view(['GET'])
     # @permission_classes([IsAuthenticated])
     def listAlertsALL(self):
-        user = self.user;
         alerts = AlertModel.objects.all();
-        send_updates(455);
+        data = send_updates(get_coin_price());
+        for i in data:
+            print(i.get('recepinet'),i.get('body'))
+            # send_email_task.delay(i.get('recepinet'),i.get('body'))
         serializer = AlertSerializers(alerts,many=True)
+
         return Response(serializer.data);
     
 
@@ -107,7 +114,10 @@ class AlertView(APIView):
             return Response(e)
 
 # class AlertList(viewsets.ModelViewSet):
-class AlertList(generics.ListCreateAPIView):
+class AlertList(generics.ListAPIView):
     queryset = AlertModel.objects.all()
     serializer_class = AlertTestSerializers
+    pagination_class = PageNumberPagination
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['status', 'check']
     # permission_classes = [IsAuthenticated]
