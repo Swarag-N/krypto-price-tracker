@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/3.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
-
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -26,11 +26,19 @@ SECRET_KEY = 'django-insecure-8oadyejz^335@4z%#4o#12hr3y(iy@cw=%i)oi0o6c7!4dnfoj
 DEBUG = True
 
 ALLOWED_HOSTS = []
+import environ
+
+
+
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     )
+}
+
+SIMPLE_JWT = {
+   'AUTH_HEADER_TYPES': ('JWT',),
 }
 
 # Application definition
@@ -43,13 +51,19 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+
+    'Alerts',
+    'Authentication',
+
     'rest_framework',
     'rest_framework_simplejwt',
     'djoser',
 
-    'Alerts'
-
 ]
+
+AUTH_USER_MODEL = 'Authentication.User'
+
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -87,8 +101,8 @@ WSGI_APPLICATION = 'KryptoAPI.wsgi.application'
 DATABASES={
    'default':{
       'ENGINE':'django.db.backends.postgresql_psycopg2',
-      'NAME':'krypto',
-      'USER':'krypto',
+      'NAME':'krypto2',
+      'USER':'krypto2',
       'PASSWORD':'Swarag',
       'HOST':'localhost',
       'PORT':'5432',
@@ -146,3 +160,15 @@ STATIC_URL = '/static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
+
+env = environ.Env()
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = env('EMAIL_ID')
+EMAIL_HOST_PASSWORD = 'cqjyuofyiokrdlzd'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = env('EMAIL_ID')
+EMAIL_PASSWORD=env('EMAIL_PASSWORD')

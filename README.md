@@ -1,5 +1,33 @@
 # krypto-price-tracker
 
+
+## Running Servers
+    - postgre
+    ```
+    pgrep -u postgres -fa -- -D
+    ```
+    - rabitmq
+    ```
+    sudo systemctl enable rabbitmq-server
+    sudo systemctl status  rabbitmq-server
+    sudo systemctl start rabbitmq-server
+    ```
+### Install celery
+pip install celery
+### Install RabbitMQ (Ubuntu Linux 20.04LTS)
+sudo apt-get install rabbitmq-server
+
+
+### Start Celery
+```
+    celery -A KryptoAPI worker --loglevel=info
+```
+
+### Start Schdeuler
+```
+celery -A KryptoAPI beat --loglevel=info
+```
+
 ## Tasks
 
 * CRUD of Alerts
@@ -14,6 +42,19 @@
     - BackGround Tasks (Celery)
 * EMail System
     - Redis
+
+## Rountes
+    - Create
+    - List 
+        - Paginate ()
+        - Filter
+            - Triggered
+            - Sleep
+            - Active (Listen)
+    - Delete
+    - Listen/Sleep
+
+
 
 Things to do for the assignment
 * Create a rest API endpoint for the user’s to create an alert `alerts/create/`

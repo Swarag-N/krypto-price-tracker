@@ -30,9 +30,10 @@ urlpatterns = [
     path('auth/', include('djoser.urls')),
     # path('api/v1/auth/', include('djoser.urls.authtoken')),
     # path('api-auth/', include('rest_framework.urls')),
-    
-    path('auth/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
-    path('auth/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+
+    path('auth/', include('djoser.urls.jwt')),
+    # path('auth/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    # path('auth/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     
     
     path('api/alert/', include('Alerts.urls')),

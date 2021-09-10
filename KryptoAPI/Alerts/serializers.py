@@ -8,6 +8,6 @@ class AlertSerializers(serializers.ModelSerializer):
         model = AlertModel
         exclude = ('user', )
     
-    def create(self, validated_data):
-        validated_data['user'] = self.context.get('request').user;
-        return super().create(validated_data)
+    # def create(self, validated_data):
+    #     validated_data['user'] = self.context.get('request').user;
+    #     return super().create(validated_data)
