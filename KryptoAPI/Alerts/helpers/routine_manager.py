@@ -1,7 +1,6 @@
-from .requests_manager import get_coin_price,get_coins_price
+from .requests_manager import get_coins_price
 from Alerts.models import KryptoCoin
 
-GECKO_CODE = 'gecko_code'
 # Update all coin values
 # Check with Alerts
 # Send Mails

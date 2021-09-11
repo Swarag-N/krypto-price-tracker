@@ -5,6 +5,9 @@ from Authentication.models import User
 # Create your models here.
 
 class KryptoCoin(models.Model):
+    """
+    KryptoCoin model
+    """
     name = models.CharField(max_length=20)
     gecko_code = models.CharField(max_length=10,unique=True)
     cur_usd = models.IntegerField();
@@ -13,6 +16,9 @@ class KryptoCoin(models.Model):
         return self.name + " "+self.gecko_code
 
 class AlertModel(models.Model):
+    """
+    Alert model
+    """
     # COIN_BITCOIN = 'BTC'
     # COIN_ETHERURM = 'ETH'
 
