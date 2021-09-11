@@ -1,0 +1,44 @@
+
+# Create Alerts for the given list of Coins (Authenticated)
+POST /api/alert/create/ HTTP/1.1
+Host: localhost:8000
+Authorization: JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjMxMzI3NzgyLCJqdGkiOiJiNTRhZmI4MDUyZmM0YjZlYjM2MzQ5MjdjNTI4OWZkOSIsInVzZXJfaWQiOjF9.WR_-wby5ymQ_Y_wSVbBaI4QSQv4zDkVyn1yMOMg5W2A
+Content-Type: application/json
+Content-Length: 71
+
+{
+    "coin": 1,
+    "status": 1,
+    "check": "U",
+    "price": 4000
+}
+
+###
+
+# List of Alerts for an User (Authenticated) 
+GET /api/alert/list HTTP/1.1
+Host: localhost:8000
+Authorization: JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjMxMzI3NzgyLCJqdGkiOiJiNTRhZmI4MDUyZmM0YjZlYjM2MzQ5MjdjNTI4OWZkOSIsInVzZXJfaWQiOjF9.WR_-wby5ymQ_Y_wSVbBaI4QSQv4zDkVyn1yMOMg5W2A
+
+###
+
+GET /api/alert/5/view HTTP/1.1
+Host: localhost:8000
+Authorization: JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjMxMzI3NzgyLCJqdGkiOiJiNTRhZmI4MDUyZmM0YjZlYjM2MzQ5MjdjNTI4OWZkOSIsInVzZXJfaWQiOjF9.WR_-wby5ymQ_Y_wSVbBaI4QSQv4zDkVyn1yMOMg5W2A
+
+
+###
+PUT /api/alert/5/activate HTTP/1.1
+Host: localhost:8000
+Authorization: JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjMxMzI3NzgyLCJqdGkiOiJiNTRhZmI4MDUyZmM0YjZlYjM2MzQ5MjdjNTI4OWZkOSIsInVzZXJfaWQiOjF9.WR_-wby5ymQ_Y_wSVbBaI4QSQv4zDkVyn1yMOMg5W2A
+
+
+###
+PUT /api/alert/5/deactivate HTTP/1.1
+Host: localhost:8000
+Authorization: JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjMxMzI3NzgyLCJqdGkiOiJiNTRhZmI4MDUyZmM0YjZlYjM2MzQ5MjdjNTI4OWZkOSIsInVzZXJfaWQiOjF9.WR_-wby5ymQ_Y_wSVbBaI4QSQv4zDkVyn1yMOMg5W2A
+
+###
+DELETE /api/alert/7/delete HTTP/1.1
+Host: localhost:8000
+Authorization: JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjMxMjg5NDcxLCJqdGkiOiI5ZGUwNWJlNTMwNmY0ZDlmOWVkMWMyODBkYjU4ZTIwOSIsInVzZXJfaWQiOjJ9.N92WraPyY3lmktIj0TdGCQ5vevkrwSYEtvRd5SdWGdU

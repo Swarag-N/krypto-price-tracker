@@ -5,13 +5,19 @@ Price alert application that triggers an email when the user’s target price is
 ## Features
 - CRUD Alerts
 - JWT Auth
-- EMail Notifications
+- Email Notifications
 - Celery Scheduler
+- Multiple Coins
 
 ## Get Started
 1. Clone the repo 
 2. Create a virtual env
-4. Update the `.env` file. 
+    ```
+    python3 -m venv venv
+    source ./venv/bin/activate 
+    ```
+4. Update the `.env` file.
+    - Create a env using `env.example`
 5. Have Postgre and RebitMQ running 
     - postgre
     ```
@@ -35,7 +41,7 @@ Price alert application that triggers an email when the user’s target price is
     python manage.py migrate
     ```
 8. Start Server
-    - Djnago Server
+    - Django Server
     ```
     python manage.py runserver
     ```
@@ -43,7 +49,7 @@ Price alert application that triggers an email when the user’s target price is
     ```
     celery -A KryptoAPI worker --loglevel=info
     ```
-    - start Schdeuler
+    - start Scheduler
     ```
     celery -A KryptoAPI beat --loglevel=info
     ```
@@ -56,12 +62,60 @@ pip install celery
 
 sudo apt-get install rabbitmq-server
 
-## TODO
+## Life Cycle
+1. Admin Starts the server instance and add few coins to the database
+2. User Creates an account and start creating alerts for registred coins
+3. Service Actively fetches, the latest prices of Coins (30 Sec)(Can be modified)
+4. Once the latest prices are fetched, start querying the alerts such that
+    - alert is active
+    - the alert target is crossed, both reaching an upper limit and lower limit
+5. Found Alerts are turned to sleep, 
+    - since once an email is sent, the notification is reached. Not to spam user
+    - if the user, want to have the notification still running, he/she needs to activate the alert.
 
-- Included more coins to set alerts, with other table, (one to many)
-- Formated Routes to use Django Rest FramwWork ViewSets
-- formated and add more comments
-
+## Reproducibility Tips
+1. Use Pro list view to add alerts for users, without much Hassel (added for testing) 
+    - `http://localhost:8000/api/alert/pro-listview/`
+2. Auth Header is set to JWT, not Bearer 
+3. Once Scheduler  is called,  alerts are set to sleep, so activate the alert again in Django Admin Panel 
+4. Access and Refresh Token 
+    1. `http://localhost:8000/auth/jwt/create/`
+    2. `http://localhost:8000/auth/jwt/refresh/`
+5. End Points
+    1. KryptoAPI.http
+    2. POSTMAN collection `https://www.getpostman.com/collections/46a548c84c21fc0c2f78`
+## Folder Structure
+```
+manage.py
+KryptoAPI/asgi.py
+KryptoAPI/__init__.py
+KryptoAPI/celery.py
+KryptoAPI/urls.py
+KryptoAPI/wsgi.py
+KryptoAPI/settings.py
+Alerts/__init__.py
+Alerts/serializers.py
+Alerts/mail.py
+Alerts/views.py
+Alerts/tests.py
+Alerts/tasks.py
+Alerts/apps.py
+Alerts/admin.py
+Alerts/urls.py
+Alerts/models.py
+Authentication/__init__.py
+Authentication/views.py
+Authentication/tests.py
+Authentication/apps.py
+Authentication/admin.py
+Authentication/models.py
+Alerts/helpers/__init__.py
+Alerts/helpers/task_manager.py
+Alerts/helpers/requests_manager.py
+Alerts/helpers/routine_manager.py
+Alerts/migrations/__init__.py
+Authentication/migrations/__init__.py
+```
 ## Routes
     - Create
     - List  
@@ -74,8 +128,6 @@ sudo apt-get install rabbitmq-server
     - Delete
     - Activate/Deactivate
 
-## PostMan 
-Alerts: https://www.getpostman.com/collections/46a548c84c21fc0c2f78
 
 ### Features
 * Create a rest API endpoint for the user’s to create an alert `alerts/create/`
@@ -95,11 +147,16 @@ the users that set the alert at that price. (send mail using Gmail SMTP, SendGri
 * You should set up a background worker(eg: celery/python-script/go-script) to send the
 email. Use Rabbit MQ/Redis as a message broker.)
 
+## Setting Up Postgre DB
+```sql
+CREATE DATABASE krypto2;
+CREATE USER krypto2  WITH PASSWORD 'Swarag';
+GRANT ALL PRIVILEGES ON DATABASE krypto TO krypto;
+```
 
 ## Checking Routes
 1. Headers are configured as
 **Authorization: JWT <access_token> header:**
-
 
 
 
