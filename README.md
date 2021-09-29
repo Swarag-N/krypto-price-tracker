@@ -2,6 +2,27 @@
 
 Price alert application that triggers an email when the user’s target price is achieved.
 
+## Table of Contents
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
+- [Features](#features)
+- [Get Started](#get-started)
+  - [Docker Compose](#docker-compose)
+  - [Local Development](#local-development)
+  - [Install celery](#install-celery)
+  - [Install RabbitMQ (Ubuntu Linux 20.04LTS)](#install-rabbitmq-ubuntu-linux-2004lts)
+- [Life Cycle](#life-cycle)
+- [Reproducibility Tips](#reproducibility-tips)
+- [Folder Structure](#folder-structure)
+- [Routes](#routes)
+  - [Features](#features-1)
+- [Setting Up Postgre DB](#setting-up-postgre-db)
+- [Checking Routes](#checking-routes)
+  - [Login](#login)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 ## Features
 - CRUD Alerts
 - JWT Auth
@@ -10,6 +31,17 @@ Price alert application that triggers an email when the user’s target price is
 - Multiple Coins
 
 ## Get Started
+### Docker Compose
+1. Clone the repo 
+2. Update the `.docker.env` file.
+    - Create a env using `.docker.env.example`
+3. Start Server
+    - Docker Compose
+    ```shell
+    docker-compose up
+    ```
+
+### Local Development
 1. Clone the repo 
 2. Create a virtual env
     ```
@@ -86,35 +118,45 @@ sudo apt-get install rabbitmq-server
     2. POSTMAN collection `https://www.getpostman.com/collections/46a548c84c21fc0c2f78`
 ## Folder Structure
 ```
-manage.py
-KryptoAPI/asgi.py
-KryptoAPI/__init__.py
-KryptoAPI/celery.py
-KryptoAPI/urls.py
-KryptoAPI/wsgi.py
-KryptoAPI/settings.py
-Alerts/__init__.py
-Alerts/serializers.py
-Alerts/mail.py
-Alerts/views.py
-Alerts/tests.py
-Alerts/tasks.py
-Alerts/apps.py
-Alerts/admin.py
-Alerts/urls.py
-Alerts/models.py
-Authentication/__init__.py
-Authentication/views.py
-Authentication/tests.py
-Authentication/apps.py
-Authentication/admin.py
-Authentication/models.py
-Alerts/helpers/__init__.py
-Alerts/helpers/task_manager.py
-Alerts/helpers/requests_manager.py
-Alerts/helpers/routine_manager.py
-Alerts/migrations/__init__.py
-Authentication/migrations/__init__.py
+.dockerignore
+.gitignore
+|____launch.json
+Dockerfile
+KryptoAPI.http
+|____.docker.env
+|____.env
+| |______init__.py
+| |____admin.py
+| |____apps.py
+| | |______init__.py
+| | |____requests_manager.py
+| | |____routine_manager.py
+| | |____task_manager.py
+| |____mail.py
+| | |______init__.py
+| |____models.py
+| |____serializers.py
+| |____tasks.py
+| |____tests.py
+| |____urls.py
+| |____views.py
+| |______init__.py
+| |____admin.py
+| |____apps.py
+| | |______init__.py
+| |____models.py
+| |____tests.py
+| |____views.py
+| |______init__.py
+| |____asgi.py
+| |____celery.py
+| |____settings.py
+| |____urls.py
+| |____wsgi.py
+|____manage.py
+README.md
+docker-compose.yml
+requirements.txt
 ```
 ## Routes
     - Create
