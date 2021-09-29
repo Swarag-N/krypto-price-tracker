@@ -35,7 +35,7 @@ def mail_context(alert_queryset, coin):
             msg = "Price has dropped below" + str(i.price) +"do check. Now it is " + str(coin.cur_usd);
         else:
             subj = 'Price Risen ' + coin.name;
-            msg = "Price has risen from" + str(i.price) +"do check. Mow it is " + str(coin.cur_usd);
+            msg = "Price has risen from" + str(i.price) +"do check. Now it is " + str(coin.cur_usd);
         temp['body'] = msg
         temp['subj'] = subj
         print(temp.get(subj))

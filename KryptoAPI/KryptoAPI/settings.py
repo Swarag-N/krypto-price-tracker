@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-8oadyejz^335@4z%#4o#12hr3y(iy@cw=%i)oi0o6c7!4dnfoj
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [ '127.0.0.1', '0.0.0.0','localhost']
 import environ
 
 
@@ -109,7 +109,7 @@ DATABASES={
       'NAME':env('DB_NAME'),
       'USER':env('DB_USER'),
       'PASSWORD':env('DB_PASS'),
-      'HOST':'localhost',
+      'HOST':env('DB_HOST'),
       'PORT':'5432',
    }
 }
@@ -175,3 +175,6 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = env('EMAIL_ID')
 EMAIL_PASSWORD=env('EMAIL_PASSWORD')
+
+BROKER_URL = env('RABBITMQ_URL') 
+CELERY_BROKER_URL = env('RABBITMQ_URL')
